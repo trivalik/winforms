@@ -2030,6 +2030,7 @@ namespace System.Windows.Forms
             set
             {
                 bool oldValue = Enabled;
+				value = EvaluateEnabled(value);
                 SetState(States.Enabled, value);
 
                 if (oldValue != value)
@@ -2042,6 +2043,16 @@ namespace System.Windows.Forms
                     OnEnabledChanged(EventArgs.Empty);
                 }
             }
+        }
+
+        /// <summary>
+        /// Allows to use integrate external enable sources.
+        /// </summary>
+        /// <param name="enable">external enable set</param>
+        /// <returns>maybe overriden enable state which will be set</returns>
+        protected virtual bool EvaluateEnabled(bool enable)
+        {
+            return enable;
         }
 
         /// <summary>
